@@ -1,0 +1,19 @@
+{
+  "name": "Callejeros Tours RD",
+  "short_name": "Callejeros Tours",
+  "icons": [
+    {
+      "src": "/img/favicon/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/favicon/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0b6283",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
