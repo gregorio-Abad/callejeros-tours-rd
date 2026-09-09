@@ -7,7 +7,7 @@ from reportlab.lib.units import mm
 from reportlab.pdfbase.pdfmetrics import stringWidth
 import os, textwrap, math
 
-out_dir = r"c:\Users\Administrator\Desktop\callejeros-tours-rd"
+directorio_de_salida = os.path.dirname(os.path.abspath(__file__))
 client_path = os.path.join(out_dir, "Callejeros_Tours_RD_Formulario_Cliente_Tour_Privado.pdf")
 internal_path = os.path.join(out_dir, "Callejeros_Tours_RD_Formulario_Interno_Tour_Privado.pdf")
 
