@@ -10,14 +10,24 @@ const BOOKING_CONFIG = {
   customFormEndpoint: ""
 };
 
-const defaultPolicy = `
+const defaultPolicy = {
+  es: `
   <p><strong>VERIFICACIÓN DE PAGOS:</strong> Enviar un comprobante no confirma el pago; todo comprobante debe ser revisado y verificado por Callejeros Tours.</p>
   <p><strong>BALANCE:</strong> El saldo pendiente debe completarse entre <strong>5 y 2 días antes</strong> de la excursión, según las condiciones y disponibilidad de cada actividad.</p>
   <p><strong>CANCELACIÓN DEL CLIENTE:</strong> Las reservas son <strong>generalmente no reembolsables</strong>.</p>
   <p><strong>ANTICIPACIÓN:</strong> Toda cancelación debe notificarse con un mínimo de <strong>72 horas de anticipación</strong>, según las condiciones de la reserva.</p>
   <p><strong>PAGO COMPLETO:</strong> Si el cliente cancela fuera de las condiciones establecidas después de pagar el total, <strong>puede perder el monto completo pagado</strong>.</p>
   <p><strong>EXCEPCIONES:</strong> Cualquier excepción a estas políticas será evaluada directamente por el <strong>equipo de Callejeros Tours</strong>.</p>
-`;
+`,
+  en: `
+  <p><strong>PAYMENT VERIFICATION:</strong> Sending a receipt does not confirm payment; all receipts must be reviewed and verified by Callejeros Tours.</p>
+  <p><strong>BALANCE:</strong> The remaining balance must be paid between <strong>5 and 2 days before</strong> the excursion, according to the conditions and availability of each activity.</p>
+  <p><strong>CLIENT CANCELLATION:</strong> Reservations are <strong>generally non-refundable</strong>.</p>
+  <p><strong>NOTICE:</strong> Any cancellation must be notified at least <strong>72 hours in advance</strong>, according to the reservation conditions.</p>
+  <p><strong>FULL PAYMENT:</strong> If the client cancels outside the established conditions after paying the total amount, <strong>they may lose the full amount paid</strong>.</p>
+  <p><strong>EXCEPTIONS:</strong> Any exception to these policies will be evaluated directly by the <strong>Callejeros Tours team</strong>.</p>
+`
+};
 
 const getLocalizedValue = (value, lang) => {
   if (typeof value === "string" || Array.isArray(value)) {
@@ -27,13 +37,18 @@ const getLocalizedValue = (value, lang) => {
   return value?.[lang] ?? value?.es ?? "";
 };
 
+const t = (key, fallback) => {
+  const lang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
+  return (window.translations && window.translations[lang] && window.translations[lang][key]) || fallback;
+};
+
 const tours = [
   {
     id: "ermitaño-20",
-    date: "Domingo 16 de agosto de 2026",
-    shortDate: "16 AGO",
-    title: "Playa Ermitaño",
-    location: "Samaná, República Dominicana",
+    date: { es: "Domingo 16 de agosto de 2026", en: "Sunday, August 16, 2026" },
+    shortDate: { es: "16 AGO", en: "AUG 16" },
+    title: { es: "Playa Ermitaño", en: "Ermitaño Beach" },
+    location: { es: "Samaná, República Dominicana", en: "Samaná, Dominican Republic" },
     price: "RD$3,200",
     image: "img/Playaermitaño.jpeg",
     description: {
@@ -55,10 +70,10 @@ const tours = [
   },
   {
     id: "buggy-macao",
-    date: "Domingo 20 de septiembre de 2026",
-    shortDate: "20 SEP",
-    title: "Buggy Playa Macao",
-    location: "Macao, Punta Cana",
+    date: { es: "Domingo 20 de septiembre de 2026", en: "Sunday, September 20, 2026" },
+    shortDate: { es: "20 SEP", en: "SEP 20" },
+    title: { es: "Buggy Playa Macao", en: "Macao Beach Buggy" },
+    location: { es: "Macao, Punta Cana", en: "Macao, Punta Cana" },
     price: "RD$3,700",
     image: "img/webp/Buggy.webp",
     description: {
@@ -80,10 +95,10 @@ const tours = [
   },
   {
     id: "rio-partido",
-    date: "Domingo 18 de octubre de 2026",
-    shortDate: "18 OCT",
-    title: "Tour Río Partido",
-    location: "República Dominicana",
+    date: { es: "Domingo 18 de octubre de 2026", en: "Sunday, October 18, 2026" },
+    shortDate: { es: "18 OCT", en: "OCT 18" },
+    title: { es: "Tour Río Partido", en: "Río Partido Tour" },
+    location: { es: "República Dominicana", en: "Dominican Republic" },
     price: "RD$3,100",
     image: "img/webp/Riopartido.webp",
     description: {
@@ -107,10 +122,10 @@ const tours = [
   },
   {
     id: "isla-saona",
-    date: "Domingo 15 de noviembre de 2026",
-    shortDate: "15 NOV",
-    title: "Isla Saona y piscina natural",
-    location: "Bayahíbe / Isla Saona, RD",
+    date: { es: "Domingo 15 de noviembre de 2026", en: "Sunday, November 15, 2026" },
+    shortDate: { es: "15 NOV", en: "NOV 15" },
+    title: { es: "Isla Saona y piscina natural", en: "Saona Island and natural pool" },
+    location: { es: "Bayahíbe / Isla Saona, RD", en: "Bayahíbe / Saona Island, DR" },
     price: "RD$3,800",
     image: "img/webp/islasaona.webp",
     description: {
@@ -133,10 +148,10 @@ const tours = [
   },
   {
     id: "playa-fronton",
-    date: "Domingo 06 de diciembre de 2026",
-    shortDate: "06 DIC",
-    title: "Playa Frontón y Madama",
-    location: "Las Galeras, Samaná",
+    date: { es: "Domingo 06 de diciembre de 2026", en: "Sunday, December 06, 2026" },
+    shortDate: { es: "06 DIC", en: "DEC 06" },
+    title: { es: "Playa Frontón y Madama", en: "Frontón and Madama Beach" },
+    location: { es: "Las Galeras, Samaná", en: "Las Galeras, Samaná" },
     price: "RD$3,400",
     image: "img/webp/fronton4.webp",
     bgPosition: "center bottom",
@@ -160,10 +175,10 @@ const tours = [
   },
   {
     id: "cano-frio",
-    date: "Domingo 20 de diciembre de 2026",
-    shortDate: "20 DIC",
-    title: "Caño Frío y Playa Rincón",
-    location: "Samaná, República Dominicana",
+    date: { es: "Domingo 20 de diciembre de 2026", en: "Sunday, December 20, 2026" },
+    shortDate: { es: "20 DIC", en: "DEC 20" },
+    title: { es: "Caño Frío y Playa Rincón", en: "Caño Frío and Rincón Beach" },
+    location: { es: "Samaná, República Dominicana", en: "Samaná, Dominican Republic" },
     price: "RD$2,800",
     image: "img/cañofrio.jpg",
     description: {
@@ -208,17 +223,17 @@ function renderTours() {
   grid.innerHTML = tours.map(tour => {
     const bgImage = tour.image || getRandomTourImage();
     const bgPos = tour.bgPosition || 'center';
-    
+
     const fixedIcons = [
       { file: "almuerzo.png", label: "Almuerzo", key: "icon_almuerzo" },
       { file: "transporte.png", label: "Transporte", key: "icon_transporte" },
       { file: "fotografia.png", label: "Fotografía", key: "icon_fotografia" }
     ];
-    
+
     const allIcons = fixedIcons.concat(tour.additionalIcons || []);
     const iconsHtml = `
       <div class="tour-icons" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; margin: 12px 0;">
-        ${allIcons.map(icon => `<img src="img/icons/${icon.file}" alt="${icon.label}" title="${icon.label}" ${icon.key ? `data-i18n-aria="${icon.key}" data-i18n-title="${icon.key}"` : ''} aria-label="${icon.label}" style="width: 32px; height: 32px; object-fit: contain; background: transparent;">`).join('')}
+        ${allIcons.map(icon => `<img src="img/icons/${icon.file}" alt="${icon.label}" title="${icon.label}" ${icon.key ? `data-i18n-aria="${icon.key}" data-i18n-title="${icon.key}" data-i18n-alt="${icon.key}"` : ''} aria-label="${icon.label}" style="width: 32px; height: 32px; object-fit: contain; background: transparent;">`).join('')}
       </div>
     `;
 
@@ -227,7 +242,7 @@ function renderTours() {
       <div class="tour-media" style="background-image: url('${bgImage}'); background-position: ${bgPos};">
       </div>
       <div class="tour-body">
-        <h3 style="margin-bottom: 12px; font-size: 1.6rem;">${tour.title}</h3>
+        <h3 style="margin-bottom: 12px; font-size: 1.6rem;">${getLocalizedValue(tour.title, currentLang)}</h3>
         <div style="margin-bottom: 0px;">
           <span class="price" style="display: block; font-size: 1.45rem; line-height: 1.2;">${tour.price}</span>
           <span style="font-size: 0.85rem; font-weight: normal; color: var(--muted);"><span data-i18n="tour_reserve_with">Reserva con:</span> RD$1,000</span>
@@ -241,10 +256,10 @@ function renderTours() {
     </article>
   `;
   }).join("");
-  
+
   // Triggers data-i18n replacement in the newly rendered HTML
   if (typeof setLanguage === 'function') {
-      setLanguage(currentLang);
+    setLanguage(currentLang);
   }
 }
 
@@ -252,19 +267,19 @@ function openTour(tour) {
   currentTourInModal = tour;
   const currentLang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
 
-  document.querySelector("#modal-title").textContent = tour.title;
-  document.querySelector("#modal-location").textContent = tour.location;
+  document.querySelector("#modal-title").textContent = getLocalizedValue(tour.title, currentLang);
+  document.querySelector("#modal-location").textContent = getLocalizedValue(tour.location, currentLang);
   document.querySelector("#modal-price").textContent = tour.price;
-  
+
   document.querySelector("#modal-description").textContent = getLocalizedValue(tour.description, currentLang);
-  
+
   const includesArr = getLocalizedValue(tour.includes, currentLang) || [];
   document.querySelector("#modal-includes").innerHTML = includesArr.map(x => `<li>${x}</li>`).join("");
-  
+
   const excludesArr = getLocalizedValue(tour.excludes, currentLang) || [];
   document.querySelector("#modal-excludes").innerHTML = excludesArr.map(x => `<li>${x}</li>`).join("");
-  
-  document.querySelector("#modal-policy").innerHTML = tour.policy || defaultPolicy;
+
+  document.querySelector("#modal-policy").innerHTML = getLocalizedValue(tour.policy || defaultPolicy, currentLang);
 
   if (policyAccept) policyAccept.checked = false;
   if (modalReserveBtn) {
@@ -283,7 +298,7 @@ function openTour(tour) {
 document.addEventListener("languageChanged", (e) => {
   renderTours(); // Re-render grid to update dynamic descriptions
   if (currentTourInModal && modal && (modal.open || modal.hasAttribute("open"))) {
-      openTour(currentTourInModal); // Re-populate modal with new language
+    openTour(currentTourInModal); // Re-populate modal with new language
   }
 });
 
@@ -343,7 +358,7 @@ let currentBookingData = null;
 function populateTourSelect() {
   if (!bookingTourSelect) return;
   const currentVal = bookingTourSelect.value;
-  bookingTourSelect.innerHTML = '<option value="">-- Selecciona una excursión --</option>' +
+  bookingTourSelect.innerHTML = `<option value="">${t('book_opt_tour', '-- Selecciona una excursión --')}</option>` +
     tours.map(t => `<option value="${t.id}" data-date="${t.date}">${t.title} (${t.shortDate} - ${t.price})</option>`).join("");
   if (currentVal) bookingTourSelect.value = currentVal;
 }
@@ -391,43 +406,43 @@ function validateBookingForm() {
   ["booking-name", "booking-phone", "booking-email", "booking-people", "booking-tour", "booking-date", "booking-pickup", "booking-method"].forEach(clearFieldError);
 
   if (!name || name.length < 3) {
-    setFieldError("booking-name", "Por favor ingresa tu nombre completo.");
+    setFieldError("booking-name", t("val_name", "Por favor ingresa tu nombre completo."));
     isValid = false;
   }
 
   if (!phone || phone.length < 7) {
-    setFieldError("booking-phone", "Ingresa un número de WhatsApp válido.");
+    setFieldError("booking-phone", t("val_phone", "Ingresa un número de WhatsApp válido."));
     isValid = false;
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!email || !emailRegex.test(email)) {
-    setFieldError("booking-email", "Ingresa un correo electrónico válido (ej. tu@correo.com).");
+    setFieldError("booking-email", t("val_email", "Ingresa un correo electrónico válido (ej. tu@correo.com)."));
     isValid = false;
   }
 
   if (isNaN(people) || people < 1) {
-    setFieldError("booking-people", "La cantidad debe ser al menos 1 persona.");
+    setFieldError("booking-people", t("val_people", "La cantidad debe ser al menos 1 persona."));
     isValid = false;
   }
 
   if (!tourId) {
-    setFieldError("booking-tour", "Selecciona la excursión que deseas reservar.");
+    setFieldError("booking-tour", t("val_tour", "Selecciona la excursión que deseas reservar."));
     isValid = false;
   }
 
   if (!date) {
-    setFieldError("booking-date", "La fecha de la excursión es obligatoria.");
+    setFieldError("booking-date", t("val_date", "La fecha de la excursión es obligatoria."));
     isValid = false;
   }
 
   if (!pickup || pickup.length < 3) {
-    setFieldError("booking-pickup", "Especifica el punto de recogida deseado.");
+    setFieldError("booking-pickup", t("val_pickup", "Especifica el punto de recogida deseado."));
     isValid = false;
   }
 
   if (!method) {
-    setFieldError("booking-method", "Selecciona cómo deseas enviar tu solicitud.");
+    setFieldError("booking-method", t("val_method", "Selecciona cómo deseas enviar tu solicitud."));
     isValid = false;
   }
 
@@ -457,22 +472,39 @@ function showBookingStep(step) {
 }
 
 function populateSummary(data) {
+  const lang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
   document.querySelector("#sum-name").textContent = data.nombre;
   document.querySelector("#sum-phone").textContent = data.whatsapp;
   document.querySelector("#sum-email").textContent = data.correo;
   document.querySelector("#sum-tour").textContent = data.excursion;
   document.querySelector("#sum-date").textContent = data.fecha;
-  document.querySelector("#sum-people").textContent = `${data.personas} ${data.personas === 1 ? 'persona' : 'personas'}`;
+  document.querySelector("#sum-people").textContent = `${data.personas} ${data.personas === 1 ? (lang === 'en' ? 'person' : 'persona') : (lang === 'en' ? 'people' : 'personas')}`;
   document.querySelector("#sum-pickup").textContent = data.punto_recogida;
-  document.querySelector("#sum-notes").textContent = data.observaciones || "Ninguna";
+  document.querySelector("#sum-notes").textContent = data.observaciones || (lang === 'en' ? "None" : "Ninguna");
 
   let methodText = "📱 WhatsApp";
-  if (data.metodo_envio === "email") methodText = "📧 Correo electrónico";
-  if (data.metodo_envio === "both") methodText = "⚡ Ambos (Correo + WhatsApp)";
+  if (data.metodo_envio === "email") methodText = lang === 'en' ? "📧 Email" : "📧 Correo electrónico";
+  if (data.metodo_envio === "both") methodText = lang === 'en' ? "⚡ Both (Email + WhatsApp)" : "⚡ Ambos (Correo + WhatsApp)";
   document.querySelector("#sum-method").textContent = methodText;
 }
 
 function generateWhatsAppMessage(data) {
+  const lang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
+  if (lang === 'en') {
+    return `Hello Callejeros Tours RD 👋
+I would like to request a reservation.
+
+👤 Name: ${data.nombre}
+📱 WhatsApp: ${data.whatsapp}
+📧 Email: ${data.correo}
+🏝️ Tour: ${data.excursion}
+📅 Date: ${data.fecha}
+👥 People: ${data.personas}
+📍 Pickup Location: ${data.punto_recogida}
+📝 Notes: ${data.observaciones || "None"}
+
+I look forward to your availability confirmation. Thank you!`;
+  }
   return `Hola Callejeros Tours RD 👋
 Quiero solicitar una reserva.
 
@@ -538,7 +570,7 @@ if (btnConfirmBooking) {
     }
 
     btnConfirmBooking.disabled = true;
-    btnConfirmBooking.textContent = "Procesando solicitud...";
+    btnConfirmBooking.textContent = t("book_btn_processing", "Procesando solicitud...");
 
     const { metodo_envio, excursion, nombre } = currentBookingData;
     const waMsg = generateWhatsAppMessage(currentBookingData);
@@ -571,12 +603,19 @@ if (btnConfirmBooking) {
 
       // 3. Configurar mensajes explicativos del paso de éxito
       if (hintContainer) {
+        const lang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
         if (metodo_envio === "whatsapp") {
-          hintContainer.innerHTML = `✓ Hemos abierto <strong>WhatsApp</strong> con los datos de tu reserva para que puedas enviar el mensaje con un solo clic.`;
+          hintContainer.innerHTML = lang === 'en' ?
+            `✓ We have opened <strong>WhatsApp</strong> with your reservation details so you can send the message with one click.` :
+            `✓ Hemos abierto <strong>WhatsApp</strong> con los datos de tu reserva para que puedas enviar el mensaje con un solo clic.`;
         } else if (metodo_envio === "email") {
-          hintContainer.innerHTML = `✓ La solicitud se ha enviado a <strong>${BOOKING_CONFIG.officialEmail}</strong>. Te contactaremos a la brevedad.`;
+          hintContainer.innerHTML = lang === 'en' ?
+            `✓ The request has been sent to <strong>${BOOKING_CONFIG.officialEmail}</strong>. We will contact you shortly.` :
+            `✓ La solicitud se ha enviado a <strong>${BOOKING_CONFIG.officialEmail}</strong>. Te contactaremos a la brevedad.`;
         } else {
-          hintContainer.innerHTML = `✓ Solicitud registrada para envío por <strong>correo</strong> y se ha abierto <strong>WhatsApp</strong> para tu confirmación rápida.`;
+          hintContainer.innerHTML = lang === 'en' ?
+            `✓ Request registered to be sent by <strong>email</strong> and <strong>WhatsApp</strong> has been opened for your quick confirmation.` :
+            `✓ Solicitud registrada para envío por <strong>correo</strong> y se ha abierto <strong>WhatsApp</strong> para tu confirmación rápida.`;
         }
       }
 
@@ -593,7 +632,7 @@ if (btnConfirmBooking) {
       showBookingStep("success");
     } finally {
       btnConfirmBooking.disabled = false;
-      btnConfirmBooking.textContent = "CONFIRMAR RESERVA";
+      btnConfirmBooking.textContent = t("sum_btn_confirm", "CONFIRMAR RESERVA");
     }
   });
 }
@@ -935,8 +974,9 @@ function openGroupModal() {
   }
 
   const policyContainer = document.querySelector("#group-modal-policy");
-  if (policyContainer && !policyContainer.innerHTML.trim()) {
-    policyContainer.innerHTML = defaultPolicy;
+  if (policyContainer) {
+    const currentLang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
+    policyContainer.innerHTML = getLocalizedValue(defaultPolicy, currentLang);
   }
 
   if (btnGroupSend) {
@@ -978,7 +1018,7 @@ function validateGroupForm() {
     if (!el.value.trim()) {
       isValid = false;
       const errEl = document.querySelector(`#err-${el.id}`);
-      if (errEl) errEl.textContent = "Este campo es requerido.";
+      if (errEl) errEl.textContent = t("val_required", "Este campo es requerido.");
     }
   });
 
@@ -986,7 +1026,7 @@ function validateGroupForm() {
   const errPeople = document.querySelector("#err-group-people");
   if (isNaN(personas) || personas < 5) {
     isValid = false;
-    if (errPeople) errPeople.textContent = "Las solicitudes para grupos aplican a partir de 5 personas.";
+    if (errPeople) errPeople.textContent = t("val_group_people", "Las solicitudes para grupos aplican a partir de 5 personas.");
   }
 
   if (!groupPolicyAccept.checked) {
@@ -1023,14 +1063,17 @@ if (btnGroupSend) {
     const obs = document.querySelector("#group-notes").value.trim() || "Ninguna";
     const metodo = document.querySelector("input[name='metodo_envio_grupo']:checked").value;
 
-    const text = `Hola Callejeros Tours RD\n\nQuiero solicitar una cotización especial para grupo.\n\nNombre: ${nombre}\nWhatsApp: ${whatsapp}\nCorreo: ${correo}\nExcursión: ${excursionText}\nCantidad de personas: ${personas}\nPunto de recogida: ${punto}\nObservaciones: ${obs}\n\nConfirmo que he leído y acepto las políticas de reserva y cancelación.\n\nQuedo atento a la confirmación de disponibilidad y propuesta de precio para el grupo. Gracias.`;
+    const lang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
+    const text = lang === 'en'
+      ? `Hello Callejeros Tours RD\n\nI want to request a special quote for a group.\n\nName: ${nombre}\nWhatsApp: ${whatsapp}\nEmail: ${correo}\nTour: ${excursionText}\nNumber of people: ${personas}\nPickup Location: ${punto}\nNotes: ${obs}\n\nI confirm that I have read and accepted the reservation and cancellation policies.\n\nI look forward to the availability confirmation and price proposal for the group. Thank you.`
+      : `Hola Callejeros Tours RD\n\nQuiero solicitar una cotización especial para grupo.\n\nNombre: ${nombre}\nWhatsApp: ${whatsapp}\nCorreo: ${correo}\nExcursión: ${excursionText}\nCantidad de personas: ${personas}\nPunto de recogida: ${punto}\nObservaciones: ${obs}\n\nConfirmo que he leído y acepto las políticas de reserva y cancelación.\n\nQuedo atento a la confirmación de disponibilidad y propuesta de precio para el grupo. Gracias.`;
 
     if (metodo === "whatsapp") {
       const waUrl = `https://wa.me/${BOOKING_CONFIG.officialWhatsApp}?text=${encodeURIComponent(text)}`;
       window.open(waUrl, "_blank");
       closeGroupModal();
     } else if (metodo === "email") {
-      const subject = encodeURIComponent("Solicitud especial para grupo - Callejeros Tours");
+      const subject = encodeURIComponent(lang === 'en' ? "Special group request - Callejeros Tours" : "Solicitud especial para grupo - Callejeros Tours");
       const mailUrl = `mailto:${BOOKING_CONFIG.officialEmail}?subject=${subject}&body=${encodeURIComponent(text)}`;
       window.location.href = mailUrl;
       closeGroupModal();
@@ -1068,6 +1111,16 @@ const PRIVATE_POLICY = `
   <p>El envío de un comprobante de pago no confirma automáticamente la reserva. Todo pago debe ser revisado y verificado por el equipo de Callejeros Tours RD.</p>
 `;
 
+const PRIVATE_POLICY_EN = `
+  <p>The private tour request does not constitute a confirmed reservation. Callejeros Tours RD will review the requested destinations, number of people, dates, duration, pick-up point, transportation, and other requirements before preparing a personalized quote.</p>
+  <p>Once the quote is sent and accepted, a deposit equivalent to 20% of the total budget is required to confirm the reservation and begin the corresponding coordination.</p>
+  <p>The remaining 80% must be completed according to the conditions and deadline indicated in the quote.</p>
+  <p>The availability of destinations, transportation, activities, and services is subject to confirmation.</p>
+  <p>Any modification requested after approving the quote may result in price changes.</p>
+  <p>The reservation deposit is generally non-refundable due to planning expenses and third-party coordinated services.</p>
+  <p>Sending a payment receipt does not automatically confirm the reservation. All payments must be reviewed and verified by the Callejeros Tours RD team.</p>
+`;
+
 function generateRequestReference() {
   const now = new Date();
   const year = now.getFullYear();
@@ -1092,12 +1145,12 @@ function generateRequestReference() {
 function openPrivateModal() {
   if (!privateModal) return;
 
-    if (privateForm) {
-      privateForm.reset();
-      document.querySelectorAll("#private-form .form-error").forEach(el => el.textContent = "");
-      const currentLang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
-      privateDuration.value = translations[currentLang]?.priv_val_duration || "Selecciona las fechas";
-      privateExpOther.style.display = "none";
+  if (privateForm) {
+    privateForm.reset();
+    document.querySelectorAll("#private-form .form-error").forEach(el => el.textContent = "");
+    const currentLang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
+    privateDuration.value = translations[currentLang]?.priv_val_duration || "Selecciona las fechas";
+    privateExpOther.style.display = "none";
 
     currentRequestReference = generateRequestReference();
     currentRequestDate = new Date().toLocaleString("es-DO", {
@@ -1107,8 +1160,9 @@ function openPrivateModal() {
   }
 
   const policyContainer = document.querySelector("#private-modal-policy");
-  if (policyContainer && !policyContainer.innerHTML.trim()) {
-    policyContainer.innerHTML = PRIVATE_POLICY;
+  if (policyContainer) {
+    const currentLang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
+    policyContainer.innerHTML = currentLang === 'en' ? PRIVATE_POLICY_EN : PRIVATE_POLICY;
   }
 
   if (btnPrivateSend) {
@@ -1182,7 +1236,7 @@ function calculateDuration() {
 document.addEventListener("languageChanged", () => {
   // Update duration if modal is open
   if (typeof calculateDuration === 'function') {
-      calculateDuration();
+    calculateDuration();
   }
 });
 
@@ -1212,7 +1266,7 @@ function validatePrivateForm() {
     if (!el.value.trim()) {
       isValid = false;
       const errEl = document.querySelector(`#err-${el.id}`);
-      if (errEl) errEl.textContent = "Este campo es requerido.";
+      if (errEl) errEl.textContent = t("val_required", "Este campo es requerido.");
     }
   });
 
@@ -1221,21 +1275,21 @@ function validatePrivateForm() {
   if (email && !emailRegex.test(email)) {
     isValid = false;
     const errEl = document.querySelector("#err-private-email");
-    if (errEl) errEl.textContent = "Ingresa un correo válido.";
+    if (errEl) errEl.textContent = t("val_email_invalid", "Ingresa un correo válido.");
   }
 
   const arrival = document.querySelector("#private-arrival").value;
   if (!arrival) {
     isValid = false;
     const errEl = document.querySelector("#err-private-arrival");
-    if (errEl) errEl.textContent = "Este campo es requerido.";
+    if (errEl) errEl.textContent = t("val_required", "Este campo es requerido.");
   }
 
   const departure = document.querySelector("#private-departure").value;
   if (!departure) {
     isValid = false;
     const errEl = document.querySelector("#err-private-departure");
-    if (errEl) errEl.textContent = "Este campo es requerido.";
+    if (errEl) errEl.textContent = t("val_required", "Este campo es requerido.");
   }
 
   const isDurationValid = calculateDuration();
@@ -1249,7 +1303,7 @@ function validatePrivateForm() {
   const errPeople = document.querySelector("#err-private-people");
   if (isNaN(personas) || personas < 1) {
     isValid = false;
-    if (errPeople) errPeople.textContent = "Debe ser al menos 1 persona.";
+    if (errPeople) errPeople.textContent = t("val_private_people", "Debe ser al menos 1 persona.");
   }
 
   if (!privatePolicyAccept.checked) {
@@ -1372,7 +1426,7 @@ async function generatePrivatePDF() {
   const docDefinition = {
     pageSize: 'A4',
     pageMargins: [40, 40, 40, 60],
-    footer: function(currentPage, pageCount) {
+    footer: function (currentPage, pageCount) {
       return {
         columns: [
           { text: 'Callejeros Tours RD · República Dominicana\nWhatsApp: +1 829-808-1466 · callejerostrd@gmail.com · callejerostoursrd.com', alignment: 'left', fontSize: 8, color: '#666666', margin: [40, 10, 0, 0] },
@@ -1505,13 +1559,16 @@ if (btnPrivateSend) {
     if (!validatePrivateForm()) return;
     const data = getPrivateFormData();
 
-    const text = `Hola Callejeros Tours RD\n\nQuiero solicitar una cotización para un TOUR PRIVADO.\n\nReferencia de solicitud: ${currentRequestReference}\n\nATENCIÓN: Esta solicitud no es una reserva confirmada. Quedo a la espera de su propuesta personalizada.\n\n--- DATOS DEL CLIENTE ---\nNombre: ${data.nombre}\nPaís: ${data.pais}\nWhatsApp: ${data.whatsapp}\nCorreo: ${data.correo}\nIdioma: ${data.idioma}\n\n--- INFORMACIÓN DEL VIAJE ---\nLlegada a RD: ${data.llegada}\nSalida de RD: ${data.salida}\nDuración aprox: ${data.duracion}\nPersonas: ${data.personas}\n\n--- EXPERIENCIA DESEADA ---\nDestino(s): ${data.destinos}\nTipo de experiencia: ${data.experiencias}\n\n--- RECOGIDA ---\nLugar de recogida: ${data.pickupType}\nNombre/Dirección: ${data.pickupName}\n\n--- NOTAS / PREFERENCIAS ---\n${data.obs}\n\n--- POLÍTICAS ---\nHe leído y acepto las políticas. Entiendo que se requiere un depósito del 20% después de aprobar la cotización final.\n\nEspero su respuesta, gracias.`;
+    const lang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
+    const text = lang === 'en'
+      ? `Hello Callejeros Tours RD\n\nI want to request a quote for a PRIVATE TOUR.\n\nRequest Reference: ${currentRequestReference}\n\nATTENTION: This request is not a confirmed reservation. I look forward to your personalized proposal.\n\n--- CLIENT DETAILS ---\nName: ${data.nombre}\nCountry: ${data.pais}\nWhatsApp: ${data.whatsapp}\nEmail: ${data.correo}\nLanguage: ${data.idioma}\n\n--- TRIP INFORMATION ---\nArrival in DR: ${data.llegada}\nDeparture from DR: ${data.salida}\nApprox. Duration: ${data.duracion}\nPeople: ${data.personas}\n\n--- DESIRED EXPERIENCE ---\nDestination(s): ${data.destinos}\nExperience type: ${data.experiencias}\n\n--- PICKUP ---\nPickup location: ${data.pickupType}\nName/Address: ${data.pickupName}\n\n--- NOTES / PREFERENCES ---\n${data.obs}\n\n--- POLICIES ---\nI have read and accept the policies. I understand that a 20% deposit is required after approving the final quote.\n\nI await your response, thank you.`
+      : `Hola Callejeros Tours RD\n\nQuiero solicitar una cotización para un TOUR PRIVADO.\n\nReferencia de solicitud: ${currentRequestReference}\n\nATENCIÓN: Esta solicitud no es una reserva confirmada. Quedo a la espera de su propuesta personalizada.\n\n--- DATOS DEL CLIENTE ---\nNombre: ${data.nombre}\nPaís: ${data.pais}\nWhatsApp: ${data.whatsapp}\nCorreo: ${data.correo}\nIdioma: ${data.idioma}\n\n--- INFORMACIÓN DEL VIAJE ---\nLlegada a RD: ${data.llegada}\nSalida de RD: ${data.salida}\nDuración aprox: ${data.duracion}\nPersonas: ${data.personas}\n\n--- EXPERIENCIA DESEADA ---\nDestino(s): ${data.destinos}\nTipo de experiencia: ${data.experiencias}\n\n--- RECOGIDA ---\nLugar de recogida: ${data.pickupType}\nNombre/Dirección: ${data.pickupName}\n\n--- NOTAS / PREFERENCIAS ---\n${data.obs}\n\n--- POLÍTICAS ---\nHe leído y acepto las políticas. Entiendo que se requiere un depósito del 20% después de aprobar la cotización final.\n\nEspero su respuesta, gracias.`;
 
     if (data.metodo === "whatsapp") {
       const waUrl = `https://wa.me/${BOOKING_CONFIG.officialWhatsApp}?text=${encodeURIComponent(text)}`;
       window.open(waUrl, "_blank");
     } else if (data.metodo === "email") {
-      const subject = encodeURIComponent(`Solicitud de Tour Privado ${currentRequestReference} - ${data.nombre}`);
+      const subject = encodeURIComponent(lang === 'en' ? `Private Tour Request ${currentRequestReference} - ${data.nombre}` : `Solicitud de Tour Privado ${currentRequestReference} - ${data.nombre}`);
       const mailUrl = `mailto:${BOOKING_CONFIG.officialEmail}?subject=${subject}&body=${encodeURIComponent(text)}`;
       window.location.href = mailUrl;
     }
