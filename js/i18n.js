@@ -275,6 +275,9 @@ const translations = {
     car_price_from: "Tarifa desde US$75 / día",
     car_price_note: "Disponibilidad y precio final sujetos a confirmación.",
     // Static Tours dates
+    tour_title_ermitano_static: "Playa Ermitaño",
+    tour_date_ermitano_static: "Dom 1 Nov 2026",
+    tour_ermitano_desc_static: "Una vuelta para desconectarte, conocer playas espectaculares y disfrutar Samaná con la gente de Callejeros.",
     tour_date_buggy_macao: "Dom 20 Sep 2026",
     tour_date_rio_partido: "Dom 18 Oct 2026",
     tour_buggy_macao_desc: "Aventura, barro, playa y adrenalina en una de las experiencias que más se gozan en el Este.",
@@ -637,6 +640,9 @@ const translations = {
     car_price_from: "Rates from US$75 / day",
     car_price_note: "Availability and final price are subject to confirmation.",
     // Static Tours dates
+    tour_title_ermitano_static: "Ermitaño Beach",
+    tour_date_ermitano_static: "Sun, Nov 1, 2026",
+    tour_ermitano_desc_static: "A getaway to disconnect, discover spectacular beaches, and enjoy Samaná with the Callejeros crew.",
     tour_date_buggy_macao: "Sun, Sep 20, 2026",
     tour_date_rio_partido: "Sun, Oct 18, 2026",
     tour_buggy_macao_desc: "Adventure, mud, beach and adrenaline in one of the most exciting experiences in the eastern region.",

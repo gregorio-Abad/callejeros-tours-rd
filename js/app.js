@@ -237,29 +237,6 @@ function renderTours() {
       </div>
     `;
 
-    if (tour.id === "ermitaño-20") {
-      return `
-      <article class="tour-card">
-        <div class="tour-media" style="background-image: url('${bgImage}'); background-position: ${bgPos}; min-height: 200px;">
-          <div class="tour-price-overlay">
-            <span class="overlay-price">${tour.price}</span>
-            <span class="price-sub" data-i18n="tour_per_person">por persona</span>
-          </div>
-        </div>
-        <div class="tour-body">
-          <h3 style="font-size: 1.75rem; font-weight: 800; line-height: 1.1; margin-bottom: 6px;">${getLocalizedValue(tour.title, currentLang)}</h3>
-          <p style="color: var(--orange); font-weight: 700; font-size: 1.05rem; margin-bottom: 2px;">${getLocalizedValue(tour.shortDate, currentLang)}</p>
-          <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 0px;"><span data-i18n="tour_reserve_with">Reserva con:</span> <strong style="color: var(--ink);">RD$1,000</strong></p>
-          ${iconsHtml}
-          <p style="margin-top: 4px;">${getLocalizedValue(tour.description, currentLang)}</p>
-          <div class="tour-meta" style="justify-content: center; margin-top: auto; padding-top: 16px;">
-            <button class="btn btn-accent btn-card-action" style="width: 100%; justify-content: center;" type="button" data-tour="${tour.id}" data-i18n="tour_btn_details">Ver detalles y reservar</button>
-          </div>
-        </div>
-      </article>
-      `;
-    }
-
     return `
     <article class="tour-card">
       <div class="tour-media" style="background-image: url('${bgImage}'); background-position: ${bgPos};">
