@@ -70,8 +70,8 @@ const tours = [
   },
   {
     id: "buggy-macao",
-    date: { es: "Domingo 20 de septiembre de 2026", en: "Sunday, September 20, 2026" },
-    shortDate: { es: "20 SEP", en: "SEP 20" },
+    date: { es: "", en: "" },
+    shortDate: { es: "", en: "" },
     title: { es: "Buggy Playa Macao", en: "Macao Beach Buggy" },
     location: { es: "Macao, Punta Cana", en: "Macao, Punta Cana" },
     price: "RD$3,700",
@@ -122,8 +122,8 @@ const tours = [
   },
   {
     id: "isla-saona",
-    date: { es: "Domingo 15 de noviembre de 2026", en: "Sunday, November 15, 2026" },
-    shortDate: { es: "15 NOV", en: "NOV 15" },
+    date: { es: "", en: "" },
+    shortDate: { es: "", en: "" },
     title: { es: "Isla Saona y piscina natural", en: "Saona Island and natural pool" },
     location: { es: "Bayahíbe / Isla Saona, RD", en: "Bayahíbe / Saona Island, DR" },
     price: "RD$3,800",
@@ -148,8 +148,8 @@ const tours = [
   },
   {
     id: "playa-fronton",
-    date: { es: "Domingo 06 de diciembre de 2026", en: "Sunday, December 06, 2026" },
-    shortDate: { es: "06 DIC", en: "DEC 06" },
+    date: { es: "", en: "" },
+    shortDate: { es: "", en: "" },
     title: { es: "Playa Frontón y Madama", en: "Frontón and Madama Beach" },
     location: { es: "Las Galeras, Samaná", en: "Las Galeras, Samaná" },
     price: "RD$3,400",
@@ -175,8 +175,8 @@ const tours = [
   },
   {
     id: "cano-frio",
-    date: { es: "Domingo 20 de diciembre de 2026", en: "Sunday, December 20, 2026" },
-    shortDate: { es: "20 DIC", en: "DEC 20" },
+    date: { es: "", en: "" },
+    shortDate: { es: "", en: "" },
     title: { es: "Caño Frío y Playa Rincón", en: "Caño Frío and Rincón Beach" },
     location: { es: "Samaná, República Dominicana", en: "Samaná, Dominican Republic" },
     price: "RD$2,800",
@@ -356,6 +356,7 @@ const bookingModalClose = document.querySelector("#booking-modal-close");
 const bookingForm = document.querySelector("#booking-form");
 const bookingTourSelect = document.querySelector("#booking-tour");
 const bookingDateInput = document.querySelector("#booking-date");
+const bookingTourReadonly = document.querySelector("#booking-tour-readonly");
 const btnToSummary = document.querySelector("#btn-to-summary");
 const btnBackToForm = document.querySelector("#btn-back-to-form");
 const btnConfirmBooking = document.querySelector("#btn-confirm-booking");
@@ -375,7 +376,8 @@ function populateTourSelect() {
       const title = getLocalizedValue(tour.title, currentLang);
       const shortDate = getLocalizedValue(tour.shortDate, currentLang);
       const fullDate = getLocalizedValue(tour.date, currentLang);
-      return `<option value="${tour.id}" data-date="${fullDate}">${title} (${shortDate} - ${tour.price})</option>`;
+      const dateStr = shortDate ? ` (${shortDate} - ${tour.price})` : ` — ${tour.price}`;
+      return `<option value="${tour.id}" data-date="${fullDate}">${title}${dateStr}</option>`;
     }).join("");
   if (currentVal) bookingTourSelect.value = currentVal;
 }
@@ -383,8 +385,10 @@ function populateTourSelect() {
 if (bookingTourSelect && bookingDateInput) {
   bookingTourSelect.addEventListener("change", () => {
     const selectedOption = bookingTourSelect.options[bookingTourSelect.selectedIndex];
-    if (selectedOption && selectedOption.dataset.date) {
-      bookingDateInput.value = selectedOption.dataset.date;
+    if (selectedOption && selectedOption.value) {
+      const currentLang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
+      const defaultDateStr = currentLang === 'en' ? 'Date subject to availability' : 'Fecha sujeta a disponibilidad';
+      bookingDateInput.value = selectedOption.dataset.date || t('book_date_subject', defaultDateStr);
       clearFieldError("booking-tour");
       clearFieldError("booking-date");
     } else {
@@ -546,8 +550,26 @@ function openBookingModal(tourId = "") {
     const selectedTour = tours.find(t => t.id === tourId);
     if (selectedTour && bookingDateInput) {
       const currentLang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
-      bookingDateInput.value = getLocalizedValue(selectedTour.date, currentLang);
+      const fullDateStr = getLocalizedValue(selectedTour.date, currentLang);
+      const defaultDateStr = currentLang === 'en' ? 'Date subject to availability' : 'Fecha sujeta a disponibilidad';
+      bookingDateInput.value = fullDateStr || t('book_date_subject', defaultDateStr);
+
+      if (bookingTourReadonly) {
+        bookingTourSelect.style.display = "none";
+        bookingTourReadonly.style.display = "block";
+        const title = getLocalizedValue(selectedTour.title, currentLang);
+        const shortDate = getLocalizedValue(selectedTour.shortDate, currentLang);
+        const dateStr = shortDate ? ` (${shortDate} - ${selectedTour.price})` : ` — ${selectedTour.price}`;
+        bookingTourReadonly.value = `${title}${dateStr}`;
+      }
     }
+  } else {
+    if (bookingTourSelect) {
+      bookingTourSelect.style.display = "";
+      bookingTourSelect.value = "";
+    }
+    if (bookingTourReadonly) bookingTourReadonly.style.display = "none";
+    if (bookingDateInput) bookingDateInput.value = "";
   }
 
   // Limpiar errores
