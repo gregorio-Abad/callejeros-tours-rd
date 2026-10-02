@@ -45,8 +45,8 @@ const t = (key, fallback) => {
 const tours = [
   {
     id: "ermitaño-20",
-    date: { es: "Domingo 16 de agosto de 2026", en: "Sunday, August 16, 2026" },
-    shortDate: { es: "16 AGO", en: "AUG 16" },
+    date: { es: "Domingo 1 de noviembre de 2026", en: "Sunday, November 1, 2026" },
+    shortDate: { es: "Dom 1 Nov 2026", en: "Sun 1 Nov 2026" },
     title: { es: "Playa Ermitaño", en: "Ermitaño Beach" },
     location: { es: "Samaná, República Dominicana", en: "Samaná, Dominican Republic" },
     price: "RD$3,200",
@@ -236,6 +236,29 @@ function renderTours() {
         ${allIcons.map(icon => `<img src="img/icons/${icon.file}" alt="${icon.label}" title="${icon.label}" ${icon.key ? `data-i18n-aria="${icon.key}" data-i18n-title="${icon.key}" data-i18n-alt="${icon.key}"` : ''} aria-label="${icon.label}" style="width: 32px; height: 32px; object-fit: contain; background: transparent;">`).join('')}
       </div>
     `;
+
+    if (tour.id === "ermitaño-20") {
+      return `
+      <article class="tour-card">
+        <div class="tour-media" style="background-image: url('${bgImage}'); background-position: ${bgPos}; min-height: 200px;">
+          <div class="tour-price-overlay">
+            <span class="overlay-price">${tour.price}</span>
+            <span class="price-sub" data-i18n="tour_per_person">por persona</span>
+          </div>
+        </div>
+        <div class="tour-body">
+          <h3 style="font-size: 1.75rem; font-weight: 800; line-height: 1.1; margin-bottom: 6px;">${getLocalizedValue(tour.title, currentLang)}</h3>
+          <p style="color: var(--orange); font-weight: 700; font-size: 1.05rem; margin-bottom: 2px;">${getLocalizedValue(tour.shortDate, currentLang)}</p>
+          <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 0px;"><span data-i18n="tour_reserve_with">Reserva con:</span> <strong style="color: var(--ink);">RD$1,000</strong></p>
+          ${iconsHtml}
+          <p style="margin-top: 4px;">${getLocalizedValue(tour.description, currentLang)}</p>
+          <div class="tour-meta" style="justify-content: center; margin-top: auto; padding-top: 16px;">
+            <button class="btn btn-accent btn-card-action" style="width: 100%; justify-content: center;" type="button" data-tour="${tour.id}" data-i18n="tour_btn_details">Ver detalles y reservar</button>
+          </div>
+        </div>
+      </article>
+      `;
+    }
 
     return `
     <article class="tour-card">
