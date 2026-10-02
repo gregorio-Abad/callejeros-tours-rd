@@ -368,9 +368,15 @@ let currentBookingData = null;
 
 function populateTourSelect() {
   if (!bookingTourSelect) return;
+  const currentLang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
   const currentVal = bookingTourSelect.value;
   bookingTourSelect.innerHTML = `<option value="">${t('book_opt_tour', '-- Selecciona una excursión --')}</option>` +
-    tours.map(t => `<option value="${t.id}" data-date="${t.date}">${t.title} (${t.shortDate} - ${t.price})</option>`).join("");
+    tours.map(tour => {
+      const title = getLocalizedValue(tour.title, currentLang);
+      const shortDate = getLocalizedValue(tour.shortDate, currentLang);
+      const fullDate = getLocalizedValue(tour.date, currentLang);
+      return `<option value="${tour.id}" data-date="${fullDate}">${title} (${shortDate} - ${tour.price})</option>`;
+    }).join("");
   if (currentVal) bookingTourSelect.value = currentVal;
 }
 
@@ -539,7 +545,8 @@ function openBookingModal(tourId = "") {
     bookingTourSelect.value = tourId;
     const selectedTour = tours.find(t => t.id === tourId);
     if (selectedTour && bookingDateInput) {
-      bookingDateInput.value = selectedTour.date;
+      const currentLang = typeof window.getCurrentLanguage === 'function' ? window.getCurrentLanguage() : 'es';
+      bookingDateInput.value = getLocalizedValue(selectedTour.date, currentLang);
     }
   }
 
