@@ -347,12 +347,14 @@
     </section>
 
     <!-- GOOGLE REVIEWS SECTION -->
-    <section class="section reviews" id="resenas" aria-labelledby="reviews-title">
+    <section class="section reviews" id="resenas" aria-labelledby="reviews-title" style="padding-top: 40px;">
       <div class="container">
-        <div class="section-heading" style="text-align: center;">
-          <span class="eyebrow dark" data-i18n="rev_eyebrow" style="color: var(--blue); margin-bottom: 8px; display: block;">TESTIMONIOS</span>
-          <h2 id="reviews-title" data-i18n="rev_title" style="margin-bottom: 12px;">Lo que dicen nuestros viajeros</h2>
-          <p data-i18n="rev_desc" style="color: var(--muted); font-size: 1.1rem;">Experiencias reales de quienes ya viajaron con nosotros.</p>
+        <div class="section-heading" style="align-items: flex-start; text-align: left;">
+          <div style="width: 100%;">
+            <span class="eyebrow dark" data-i18n="rev_eyebrow" style="color: var(--blue); margin-bottom: 8px; display: block;">TESTIMONIOS</span>
+            <h2 id="reviews-title" data-i18n="rev_title" style="margin-bottom: 12px;">Lo que dicen nuestros viajeros</h2>
+            <p data-i18n="rev_desc" style="color: var(--muted); font-size: 1.1rem; margin: 0;">Experiencias reales de quienes ya viajaron con nosotros.</p>
+          </div>
         </div>
         <div class="reviews-grid" id="reviews-container">
           <!-- TODO: agregar reseñas adicionales aquí en el futuro -->
@@ -402,10 +404,7 @@
             </div>
           </div>
         </div>
-        <div style="text-align: center; margin-top: 40px;">
-          <!-- TODO: agregar URL oficial de Google Reviews de Callejeros Tours RD -->
-          <a href="#" class="btn btn-outline" data-i18n="rev_btn_more" onclick="event.preventDefault()">Ver más en Google</a>
-        </div>
+
       </div>
     </section>
 
@@ -435,28 +434,23 @@
       </div>
     </section>
 
-    <section class="section faq" aria-labelledby="faq-title">
-      <div class="container narrow">
-        <span class="eyebrow dark" data-i18n="faq_eyebrow">PREGUNTAS FRECUENTES</span>
-        <h2 id="faq-title" data-i18n="faq_title">Antes de reservar</h2>
-        <details>
-          <summary data-i18n="faq_q1">¿Cómo hago mi reserva?</summary>
-          <p data-i18n="faq_a1">Selecciona la excursión, revisa sus detalles y políticas y luego contáctanos por
-            WhatsApp al 829-808-1466 o
-            por correo a callejerostrd@gmail.com para confirmar disponibilidad y completar la reserva.</p>
-        </details>
-        <details>
-          <summary data-i18n="faq_q2">¿La reserva queda confirmada al escribir por WhatsApp?</summary>
-          <p data-i18n="faq_a2">No necesariamente. La reserva queda confirmada cuando Callejeros Tours RD verifica
-            disponibilidad y
-            confirma contigo las condiciones y el pago o depósito correspondiente.</p>
-        </details>
-        <details>
-          <summary data-i18n="faq_q3">¿Puedo cancelar o cambiar mi reserva?</summary>
-          <p data-i18n="faq_a3">Las condiciones pueden variar según la excursión. Antes de reservar debes revisar la
-            política específica
-            mostrada en la ficha de cada salida.</p>
-        </details>
+    <!-- STATS SECTION -->
+    <section class="section stats" id="estadisticas" aria-label="Estadísticas de Callejeros Tours RD">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number"><span class="stat-plus">+</span><span class="counter" data-target="3250">3,250</span></div>
+            <p class="stat-desc" data-i18n="stats_followers">Seguidores en redes sociales</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number"><span class="stat-plus">+</span><span class="counter" data-target="165">165</span></div>
+            <p class="stat-desc" data-i18n="stats_clients">Clientes que han confiado en nosotros</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number"><span class="stat-plus">+</span><span class="counter" data-target="30">30</span></div>
+            <p class="stat-desc" data-i18n="stats_trips">Viajes realizados</p>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -1413,6 +1407,7 @@
   <script src="js/vendor/vfs_fonts.js"></script>
   <script src="js/app.js" defer></script>
   <script src="js/cars.js" defer></script>
+  <script src="js/stats.js" defer></script>
 </body>
 
 </html>

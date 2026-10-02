@@ -147,6 +147,9 @@ const translations = {
     faq_a2: "No necesariamente. La reserva queda confirmada cuando Callejeros Tours RD verifica disponibilidad y confirma contigo las condiciones y el pago o depósito correspondiente.",
     faq_q3: "¿Puedo cancelar o cambiar mi reserva?",
     faq_a3: "Las condiciones pueden variar según la excursión. Antes de reservar debes revisar la política específica mostrada en la ficha de cada salida.",
+    stats_followers: "Seguidores en redes sociales",
+    stats_clients: "Clientes que han confiado en nosotros",
+    stats_trips: "Viajes realizados",
     // Footer
     footer_desc: "Experiencias dominicanas con buena vibra.",
     footer_contact: "Contacto",
@@ -724,7 +727,10 @@ const translations = {
     rev_empty: "No reviews available at the moment.",
     rev_error: "Could not load reviews. Please try again later.",
     rev_btn_more: "See more on Google",
-    rev_source: "Source: Google"
+    rev_source: "Source: Google",
+    stats_followers: "Social media followers",
+    stats_clients: "Clients who have trusted us",
+    stats_trips: "Trips completed"
   }
 };
 

@@ -258,8 +258,19 @@ function renderTours() {
   }).join("");
 
   // Triggers data-i18n replacement in the newly rendered HTML
-  if (typeof setLanguage === 'function') {
-    setLanguage(currentLang);
+  if (typeof translations !== 'undefined' && translations[currentLang]) {
+    const elements = grid.querySelectorAll('[data-i18n]');
+    elements.forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[currentLang][key]) {
+        if (el.hasAttribute('data-i18n-placeholder') || (el.hasAttribute('placeholder') && el.tagName === 'INPUT')) {
+          el.setAttribute('placeholder', translations[currentLang][key]);
+        }
+        if (!el.hasAttribute('data-i18n-placeholder')) {
+          el.innerHTML = translations[currentLang][key];
+        }
+      }
+    });
   }
 }
 
