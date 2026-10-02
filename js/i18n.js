@@ -353,7 +353,16 @@ const translations = {
     car_sum_license: "Licencia",
     car_sum_passengers: "Pasajeros",
     car_sum_alternative: "Alternativa similar",
-    car_sum_comments: "Comentarios"
+    car_sum_comments: "Comentarios",
+    // Reviews
+    rev_eyebrow: "TESTIMONIOS",
+    rev_title: "Lo que dicen nuestros viajeros",
+    rev_desc: "Experiencias reales de quienes ya viajaron con nosotros.",
+    rev_loading: "Cargando reseñas...",
+    rev_empty: "No hay reseñas disponibles en este momento.",
+    rev_error: "No se pudieron cargar las reseñas. Por favor, intenta de nuevo más tarde.",
+    rev_btn_more: "Ver más en Google",
+    rev_source: "Fuente: Google"
   },
   en: {
     lang_switch_text: "🇩🇴 Cambiar a Español",
@@ -706,7 +715,16 @@ const translations = {
     car_sum_license: "License",
     car_sum_passengers: "Passengers",
     car_sum_alternative: "Similar alternative",
-    car_sum_comments: "Comments"
+    car_sum_comments: "Comments",
+    // Reviews
+    rev_eyebrow: "TESTIMONIALS",
+    rev_title: "What our travelers say",
+    rev_desc: "Real experiences from travelers who have explored with us.",
+    rev_loading: "Loading reviews...",
+    rev_empty: "No reviews available at the moment.",
+    rev_error: "Could not load reviews. Please try again later.",
+    rev_btn_more: "See more on Google",
+    rev_source: "Source: Google"
   }
 };
 
